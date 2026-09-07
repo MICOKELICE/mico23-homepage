@@ -94,9 +94,6 @@ h1 em { color: var(--teal); font-weight: 400; }
 
 .contact { text-align: center; max-width: 1000px; }
 .contact h2 { font-family: Georgia, "Times New Roman", serif; font-size: clamp(2.4rem, 5.2vw, 5rem); }
-.contact-link { display: inline-flex; gap: 2rem; align-items: center; margin-top: 3rem; padding-bottom: .55rem; border-bottom: 1px solid var(--ink); text-decoration: none; font-size: .74rem; letter-spacing: .13em; text-transform: uppercase; }
-.contact-link span { color: var(--coral); transition: transform .2s; }
-.contact-link:hover span { transform: translate(3px, -3px); }
 footer { max-width: var(--max); margin: 0 auto; padding: 2rem var(--pad); border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; gap: 1rem; color: var(--muted); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; }
 .footer-brand { color: var(--ink); }
 .footer-brand .brand-mark { border-color: var(--line); color: var(--teal-dark); }
