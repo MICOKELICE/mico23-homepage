@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Request an English visual novel translation and follow its public status.">
+  <meta name="theme-color" content="#0b0d10">
+  <title>Requests · Mico Patch Archive</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="games.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body data-page="requests">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="topbar">
+    <a class="wordmark" href="index.html"><span>MK</span><strong>Mico Patch Archive</strong></a>
+    <div class="topbar-note">Community request board</div>
+  </header>
+  <aside class="sidebar" data-sidebar>
+    <nav aria-label="Primary navigation">
+      <p class="nav-label">Library</p>
+      <a class="nav-item" href="index.html"><span class="nav-icon">▦</span><span>Games</span></a>
+      <a class="nav-item active" href="request.html"><span class="nav-icon">◌</span><span>Request</span></a>
+    </nav>
+    <div class="sidebar-foot"><span class="status-dot"></span><p><strong>Public board</strong><br>Status is owner-managed</p></div>
+  </aside>
+  <main class="main request-main" id="main">
+    <section class="page-intro compact">
+      <div><p class="eyebrow">Community board</p><h1>Translation requests</h1><p>Suggest a visual novel for a future English patch. Every accepted submission appears publicly below.</p></div>
+    </section>
+
+    <section class="request-layout">
+      <div class="request-panel">
+        <div class="section-title"><span>01</span><div><h2>Submit a request</h2><p>Game title and a valid VNDB link are required.</p></div></div>
+        <form class="request-form" data-request-form>
+          <label>Game name <span>*</span><input name="gameName" type="text" minlength="2" maxlength="120" required placeholder="e.g. Tsukikage no Simulacre"></label>
+          <label>VNDB link <span>*</span><input name="vndbUrl" type="url" required placeholder="https://vndb.org/v12345" pattern="https://(www\.)?vndb\.org/v[0-9]+/?"></label>
+          <label class="honeypot" aria-hidden="true">Website<input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+          <p class="form-notice">Submissions are public. Status changes are managed by the site owner and cannot be edited from this website.</p>
+          <button class="primary-button" type="submit">Submit request <span>→</span></button>
+          <p class="form-message" data-form-message role="status"></p>
+        </form>
+      </div>
+
+      <div class="request-board">
+        <div class="section-title"><span>02</span><div><h2>Request board</h2><p>Browse suggestions and completed requests.</p></div></div>
+        <div class="status-tabs" role="tablist" aria-label="Request status">
+          <button class="active" type="button" role="tab" data-status-tab="list">List <b data-list-count>0</b></button>
+          <button type="button" role="tab" data-status-tab="done">Done <b data-done-count>0</b></button>
+        </div>
+        <div class="request-list" data-request-list aria-live="polite"><div class="loading-line">Loading public requests…</div></div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <p><strong>Request policy</strong> — Submitting a title does not guarantee a translation. Duplicate, invalid, or inappropriate entries may be removed. This board collects only the game name and VNDB link; do not submit personal information.</p>
+      <span>Status updates are owner-managed</span>
+    </footer>
+  </main>
+</body>
+</html>

@@ -1,24 +1,32 @@
-# mico23.site homepage
+# Mico Patch Archive
 
-A lightweight personal homepage for Mico Kelice. The site is plain HTML, CSS, and JavaScript, so it has no build step and no runtime dependencies.
+A responsive visual-novel translation patch library for `mico23.site`.
 
-## Run locally
+## Pages
 
-Open `index.html` directly in a browser, or serve the folder with Python:
+- `index.html` — searchable game catalog with six games per page.
+- `game.html?id=...` — game description, gallery, VNDB link, and Google Drive/MEGA mirrors.
+- `request.html` — public request form with List and Done tabs.
+- `functions/api/requests.js` — Cloudflare Pages Function for reading and creating requests.
 
-```powershell
-python -m http.server 8080
+## Add another game
+
+1. Put its optimized cover and screenshots in `assets/`.
+2. Add one object to `window.PATCH_GAMES` in `games.js`.
+3. Commit the files. Cloudflare Pages redeploys automatically.
+
+The catalog sorts by `updated` and automatically paginates at six games per page.
+
+## Request database
+
+Create a Cloudflare D1 database, run `schema.sql`, and bind it to the Pages project using the variable name `PATCH_DB`. The public API intentionally supports only `GET` and `POST`; it has no public status-update route.
+
+To mark a request done, run this in the authenticated Cloudflare D1 console:
+
+```sql
+UPDATE requests SET status = 'done' WHERE id = 1;
 ```
 
-Then visit `http://localhost:8080`.
+## Local preview
 
-## Customize
-
-- Personal copy and project descriptions: `index.html`
-- Colors, typography, spacing, and responsive layout: the variables and media queries in `styles.css`
-- Hero artwork: `assets/biomedical-hero.png`
-- Mobile menu and dynamic footer year: `script.js`
-
-## Deploy
-
-Upload the folder to a static host such as Cloudflare Pages. No build command is required; the output directory is the project root.
+Serve the project root with any static web server. The Request page will show a database-connection notice locally because Pages Functions and D1 run on Cloudflare.
