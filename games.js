@@ -1,5 +1,27 @@
 window.PATCH_GAMES = [
   {
+    id: "tiny-shadows-interwoven-hearts",
+    title: "Tiny Shadows Interwoven Hearts",
+    japaneseTitle: "小小的身影，重叠的内心",
+    patchLabel: "English Translation Patch · MTL",
+    translation: "MTL",
+    updated: "2026-10-15",
+    platform: "Windows",
+    rating: "All Ages",
+    developer: "Potato Flower Production Group (土豆花制作组)",
+    playtime: "Very short · about 1.5 hours",
+    vndb: "https://vndb.org/v58650",
+    cover: "assets/tiny-shadows-cover.jpg",
+    thumbnail: "assets/tiny-shadows-01.webp",
+    screenshots: [
+      "assets/tiny-shadows-01.webp",
+      "assets/tiny-shadows-02.webp",
+      "assets/tiny-shadows-03.webp"
+    ],
+    description: "Lin Mo is an ordinary programmer whose days have settled into the same routine between work, his apartment, and a familiar coffee shop. A chance encounter with the sharp-tongued Su Youqing disrupts that quiet life, and he soon realizes that the mysterious girl is hiding more than her youthful appearance suggests.",
+    googleDrive: "https://drive.google.com/file/d/1_Ty-pqZzLUpwUKxK2Xb3WB7VXOrpNZVv/view?usp=sharing"
+  },
+  {
     id: "tsukikage-no-simulacre",
     title: "Tsukikage no Simulacre: Kaihou no Hane",
     japaneseTitle: "月影のシミュラクル -解放の羽-",

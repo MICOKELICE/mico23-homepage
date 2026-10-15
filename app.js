@@ -47,7 +47,7 @@
         <article class="game-card">
           <a class="card-image" href="game.html?id=${encodeURIComponent(game.id)}">
             <img src="${game.thumbnail}" alt="${escapeHTML(game.title)} screenshot" loading="lazy">
-            <span class="card-platform">${escapeHTML(game.platform)} · ${escapeHTML(game.rating)}</span>
+            <span class="card-platform">${escapeHTML(game.platform)} · ${escapeHTML(game.rating)}${game.translation ? ` · ${escapeHTML(game.translation)}` : ""}</span>
             <span class="card-arrow" aria-hidden="true">↗</span>
           </a>
           <div class="card-copy">
@@ -87,7 +87,7 @@
             <p class="eyebrow">${escapeHTML(game.patchLabel)}</p>
             <h1>${escapeHTML(game.title)}</h1>
             <p class="detail-jp">${escapeHTML(game.japaneseTitle)}</p>
-            <div class="detail-tags"><span>Windows</span><span class="rating-tag">${escapeHTML(game.rating)}</span><span>English patch</span><span>Updated ${formatDate(game.updated)}</span></div>
+            <div class="detail-tags"><span>${escapeHTML(game.platform)}</span><span class="rating-tag">${escapeHTML(game.rating)}</span>${game.translation ? `<span class="translation-tag">${escapeHTML(game.translation)}</span>` : ""}<span>English patch</span><span>Updated ${formatDate(game.updated)}</span></div>
             <p class="detail-description">${escapeHTML(game.description)}</p>
             <dl class="game-facts">
               <div><dt>Developer</dt><dd>${escapeHTML(game.developer)}</dd></div>
@@ -106,10 +106,10 @@
       </section>
 
       <section class="download-section">
-        <div><p class="eyebrow">Patch download</p><h2>Choose a mirror</h2><p>Both links contain the same patch files. The original game is not included.</p></div>
+        <div><p class="eyebrow">Patch download</p><h2>${game.mega ? "Choose a mirror" : "Download the patch"}</h2><p>${game.mega ? "Both links contain the same patch files." : "Hosted externally on Google Drive."} The original game is not included.</p></div>
         <div class="download-buttons">
           <a class="download-button drive" href="${game.googleDrive}" target="_blank" rel="noopener noreferrer"><span class="download-logo">△</span><span><small>Download from</small>Google Drive</span><b>↗</b></a>
-          <a class="download-button mega" href="${game.mega}" target="_blank" rel="noopener noreferrer"><span class="download-logo">M</span><span><small>Download from</small>MEGA</span><b>↗</b></a>
+          ${game.mega ? `<a class="download-button mega" href="${game.mega}" target="_blank" rel="noopener noreferrer"><span class="download-logo">M</span><span><small>Download from</small>MEGA</span><b>↗</b></a>` : ""}
         </div>
       </section>
 

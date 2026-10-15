@@ -114,6 +114,7 @@ h1, h2, h3 { margin-top: 0; line-height: 1.12; }
 .game-facts dt { color: #757b81; font-size: .62rem; text-transform: uppercase; letter-spacing: .1em; }
 .game-facts dd { margin: .25rem 0 0; color: #e1e1df; font-size: .82rem; }
 .rating-tag { border-color: #ba554d !important; color: #ff9a91 !important; }
+.translation-tag { border-color: #c18f3b !important; background: #c18f3b1c; color: #ffd88c !important; font-weight: 800; }
 .rating-value { color: #ff8c83 !important; font-weight: 750; }
 .vndb-link { display: inline-flex; gap: 1.5rem; align-items: center; padding-bottom: .35rem; border-bottom: 1px solid var(--accent); color: var(--accent-bright); text-decoration: none; font-size: .72rem; text-transform: uppercase; letter-spacing: .1em; }
 .detail-section, .download-section, .detail-footer { width: min(var(--content), calc(100% - 8vw)); margin-left: auto; margin-right: auto; }
