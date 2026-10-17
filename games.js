@@ -1,5 +1,28 @@
 window.PATCH_GAMES = [
   {
+    id: "hoshizora-tetsudou-to-shiro-no-tabi",
+    title: "Hoshizora Tetsudou to Shiro no Tabi",
+    japaneseTitle: "星空鉄道とシロの旅",
+    patchLabel: "English Translation Patch · MTL",
+    translation: "MTL",
+    updated: "2026-10-17",
+    platform: "Windows",
+    rating: "All Ages",
+    developer: "Shiratamaco",
+    playtime: "Short · about 9 hours",
+    vndb: "https://vndb.org/v28297",
+    cover: "assets/hoshizora-cover.jpg",
+    thumbnail: "assets/hoshizora-01.webp",
+    screenshots: [
+      "assets/hoshizora-01.webp",
+      "assets/hoshizora-02.webp",
+      "assets/hoshizora-03.webp",
+      "assets/hoshizora-04.webp"
+    ],
+    description: "A solitary traveler boards a steam train beneath the starry sky. Along the way, he meets kind passengers, a charming conductor, and a mysterious girl with cat ears. Their journey asks what each of them will carry away from this fleeting encounter.",
+    googleDrive: "https://drive.google.com/file/d/1ZfD7L5_6Y0106IfHDFD9bvTdiKxZY-sP/view?usp=sharing"
+  },
+  {
     id: "tiny-shadows-interwoven-hearts",
     title: "Tiny Shadows Interwoven Hearts",
     japaneseTitle: "小小的身影，重叠的内心",
