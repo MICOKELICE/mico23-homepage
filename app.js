@@ -136,12 +136,28 @@
     const renderRequests = () => {
       const visible = requests.filter((item) => item.status === activeStatus);
       document.querySelector("[data-list-count]").textContent = requests.filter((item) => item.status === "list").length;
+      document.querySelector("[data-progress-count]").textContent = requests.filter((item) => item.status === "in_progress").length;
       document.querySelector("[data-done-count]").textContent = requests.filter((item) => item.status === "done").length;
-      list.innerHTML = visible.length ? visible.map((item) => `
+      list.innerHTML = visible.length ? visible.map((item) => {
+        const inProgress = item.status === "in_progress";
+        const percent = Math.min(100, Math.max(0, Number(item.progress_percent) || 0));
+        const updates = Array.isArray(item.progress_updates) ? item.progress_updates : [];
+        return `
         <article class="request-item">
-          <div><a href="${escapeHTML(item.vndb_url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.game_name)}</a><p>Submitted ${formatDate(item.created_at.slice(0, 10))} · <span>VNDB ↗</span></p></div>
-          <span class="status-pill ${item.status}">${item.status === "done" ? "Done" : "List"}</span>
-        </article>`).join("") : `<div class="board-empty"><span>◇</span><h3>No ${activeStatus === "done" ? "completed" : "pending"} requests yet</h3><p>${activeStatus === "done" ? "Completed work will appear here." : "Be the first to suggest a title."}</p></div>`;
+          <div class="request-item-head">
+            <div><a href="${escapeHTML(item.vndb_url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.game_name)}</a><p>${inProgress ? "Translation underway" : `Submitted ${formatDate(item.created_at.slice(0, 10))}`} · <span>VNDB ↗</span></p></div>
+            <span class="status-pill ${item.status}">${inProgress ? "In Progress" : item.status === "done" ? "Done" : "List"}</span>
+          </div>
+          ${inProgress ? `<div class="request-progress">
+            <div class="progress-label"><strong>Translation progress</strong><span>${percent}%</span></div>
+            <div class="progress-track" role="progressbar" aria-label="Translation progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${percent}"><span style="width:${percent}%"></span></div>
+            <details class="progress-details" open>
+              <summary>Progress updates</summary>
+              <ol>${updates.map((entry) => `<li>${escapeHTML(entry)}</li>`).join("")}</ol>
+            </details>
+          </div>` : ""}
+        </article>`;
+      }).join("") : `<div class="board-empty"><span>◇</span><h3>No ${activeStatus === "done" ? "completed" : activeStatus === "in_progress" ? "active" : "pending"} requests yet</h3><p>${activeStatus === "done" ? "Completed work will appear here." : activeStatus === "in_progress" ? "Current translation work will appear here." : "Be the first to suggest a title."}</p></div>`;
     };
 
     const load = async () => {
@@ -156,7 +172,10 @@
 
     document.querySelectorAll("[data-status-tab]").forEach((tab) => tab.addEventListener("click", () => {
       activeStatus = tab.dataset.statusTab;
-      document.querySelectorAll("[data-status-tab]").forEach((item) => item.classList.toggle("active", item === tab));
+      document.querySelectorAll("[data-status-tab]").forEach((item) => {
+        item.classList.toggle("active", item === tab);
+        item.setAttribute("aria-selected", String(item === tab));
+      });
       renderRequests();
     }));
 

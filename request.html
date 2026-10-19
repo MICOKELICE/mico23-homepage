@@ -6,9 +6,9 @@
   <meta name="description" content="Request an English visual novel translation and follow its public status.">
   <meta name="theme-color" content="#0b0d10">
   <title>Requests · Mico Patch Archive</title>
-  <link rel="stylesheet" href="styles.css?v=20261017a">
-  <script src="games.js?v=20261017a" defer></script>
-  <script src="app.js?v=20261017a" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20261019a">
+  <script src="games.js?v=20261019a" defer></script>
+  <script src="app.js?v=20261019a" defer></script>
 </head>
 <body data-page="requests">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -43,10 +43,11 @@
       </div>
 
       <div class="request-board">
-        <div class="section-title"><span>02</span><div><h2>Request board</h2><p>Browse suggestions and completed requests.</p></div></div>
+        <div class="section-title"><span>02</span><div><h2>Request board</h2><p>Browse suggestions, work in progress, and completed requests.</p></div></div>
         <div class="status-tabs" role="tablist" aria-label="Request status">
-          <button class="active" type="button" role="tab" data-status-tab="list">List <b data-list-count>0</b></button>
-          <button type="button" role="tab" data-status-tab="done">Done <b data-done-count>0</b></button>
+          <button class="active" type="button" role="tab" aria-selected="true" data-status-tab="list">List <b data-list-count>0</b></button>
+          <button type="button" role="tab" aria-selected="false" data-status-tab="in_progress">In Progress <b data-progress-count>0</b></button>
+          <button type="button" role="tab" aria-selected="false" data-status-tab="done">Done <b data-done-count>0</b></button>
         </div>
         <div class="request-list" data-request-list aria-live="polite"><div class="loading-line">Loading public requests…</div></div>
       </div>
