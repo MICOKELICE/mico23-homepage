@@ -10,9 +10,20 @@ const json = (data, status = 200) => new Response(JSON.stringify(data), {
 export async function onRequestGet({ env }) {
   if (!env.PATCH_DB) return json({ error: "Database binding is not configured." }, 503);
   const { results } = await env.PATCH_DB.prepare(
-    "SELECT id, game_name, vndb_url, status, created_at FROM requests ORDER BY created_at DESC, id DESC LIMIT 200"
+    `SELECT r.id, r.game_name, r.vndb_url, r.created_at,
+      CASE WHEN r.status = 'list' AND p.request_id IS NOT NULL THEN 'in_progress' ELSE r.status END AS status,
+      p.percent AS progress_percent, p.updates_json
+    FROM requests r LEFT JOIN request_progress p ON p.request_id = r.id
+    ORDER BY r.created_at DESC, r.id DESC LIMIT 200`
   ).all();
-  return json(results || []);
+  return json((results || []).map(({ updates_json, ...row }) => {
+    let progress_updates = [];
+    try {
+      const parsed = JSON.parse(updates_json || "[]");
+      if (Array.isArray(parsed)) progress_updates = parsed.filter((entry) => typeof entry === "string");
+    } catch { /* Ignore malformed owner-entered progress notes. */ }
+    return { ...row, progress_updates };
+  }));
 }
 
 export async function onRequestPost({ request, env }) {
