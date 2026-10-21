@@ -6,7 +6,7 @@ A responsive visual-novel translation patch library for `mico23.site`.
 
 - `index.html` — searchable game catalog with six games per page.
 - `game.html?id=...` — game description, gallery, VNDB link, and Google Drive/MEGA mirrors.
-- `request.html` — public request form with List, In Progress, and Done tabs.
+- `request.html` — public request form with List, In Progress, and Done tabs; List shows seven requests per page.
 - `functions/api/requests.js` — Cloudflare Pages Function for reading and creating requests.
 
 ## Add another game
@@ -27,7 +27,8 @@ To set an owner-managed progress entry, run this in the authenticated Cloudflare
 
 ```sql
 INSERT INTO request_progress (request_id, percent, updates_json)
-VALUES (3, 20, json_array(
+VALUES (3, 40, json_array(
+  'Completed the first character route, corrected earlier errors, and reviewed and refined the common route translation.',
   'Completed the translations of Chapters 1 and 2, and verified that both run correctly.',
   'Completed English text compatibility in the game; character names and dialogue now display correctly in English.'
 ));

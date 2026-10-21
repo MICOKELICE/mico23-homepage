@@ -129,12 +129,20 @@
   const setupRequests = () => {
     const form = document.querySelector("[data-request-form]");
     const list = document.querySelector("[data-request-list]");
-    if (!form || !list) return;
+    const pagination = document.querySelector("[data-request-pagination]");
+    if (!form || !list || !pagination) return;
     let requests = [];
     let activeStatus = "list";
+    let requestPage = 1;
+    const requestsPerPage = 7;
 
     const renderRequests = () => {
-      const visible = requests.filter((item) => item.status === activeStatus);
+      const matching = requests.filter((item) => item.status === activeStatus);
+      const pageCount = activeStatus === "list" ? Math.ceil(matching.length / requestsPerPage) : 1;
+      requestPage = Math.min(requestPage, Math.max(1, pageCount));
+      const visible = activeStatus === "list"
+        ? matching.slice((requestPage - 1) * requestsPerPage, requestPage * requestsPerPage)
+        : matching;
       document.querySelector("[data-list-count]").textContent = requests.filter((item) => item.status === "list").length;
       document.querySelector("[data-progress-count]").textContent = requests.filter((item) => item.status === "in_progress").length;
       document.querySelector("[data-done-count]").textContent = requests.filter((item) => item.status === "done").length;
@@ -158,7 +166,21 @@
           </div>` : ""}
         </article>`;
       }).join("") : `<div class="board-empty"><span>◇</span><h3>No ${activeStatus === "done" ? "completed" : activeStatus === "in_progress" ? "active" : "pending"} requests yet</h3><p>${activeStatus === "done" ? "Completed work will appear here." : activeStatus === "in_progress" ? "Current translation work will appear here." : "Be the first to suggest a title."}</p></div>`;
+      pagination.hidden = activeStatus !== "list" || pageCount <= 1;
+      pagination.innerHTML = pagination.hidden ? "" : `
+        <button type="button" data-request-page="previous" aria-label="Previous page" ${requestPage === 1 ? "disabled" : ""}>←</button>
+        ${Array.from({ length: pageCount }, (_, index) => `<button type="button" data-request-page="${index + 1}" aria-label="Page ${index + 1}" ${requestPage === index + 1 ? 'class="active" aria-current="page"' : ""}>${index + 1}</button>`).join("")}
+        <button type="button" data-request-page="next" aria-label="Next page" ${requestPage === pageCount ? "disabled" : ""}>→</button>`;
     };
+
+    pagination.addEventListener("click", (event) => {
+      const button = event.target.closest("button[data-request-page]");
+      if (!button || button.disabled) return;
+      const target = button.dataset.requestPage;
+      requestPage = target === "previous" ? requestPage - 1 : target === "next" ? requestPage + 1 : Number(target);
+      renderRequests();
+      document.querySelector(".request-board").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
 
     const load = async () => {
       try {
@@ -167,11 +189,13 @@
         requests = await response.json(); renderRequests();
       } catch {
         list.innerHTML = '<div class="board-empty"><span>!</span><h3>Request board is not connected yet</h3><p>The Cloudflare database binding will be enabled during deployment.</p></div>';
+        pagination.hidden = true;
       }
     };
 
     document.querySelectorAll("[data-status-tab]").forEach((tab) => tab.addEventListener("click", () => {
       activeStatus = tab.dataset.statusTab;
+      requestPage = 1;
       document.querySelectorAll("[data-status-tab]").forEach((item) => {
         item.classList.toggle("active", item === tab);
         item.setAttribute("aria-selected", String(item === tab));
@@ -189,7 +213,7 @@
         const response = await fetch("/api/requests", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
         const result = await response.json();
         if (!response.ok) throw new Error(result.error || "Unable to submit request");
-        form.reset(); message.classList.add("success"); message.textContent = "Request added to the public list."; await load();
+        form.reset(); message.classList.add("success"); message.textContent = "Request added to the public list."; requestPage = 1; await load();
       } catch (error) {
         message.classList.add("error"); message.textContent = error.message;
       } finally { button.disabled = false; }

@@ -90,6 +90,9 @@ h1, h2, h3 { margin-top: 0; line-height: 1.12; }
 .pagination { display: flex; justify-content: center; gap: .5rem; margin-top: 3.5rem; }
 .pagination button { width: 42px; height: 42px; border: 1px solid var(--line); border-radius: 5px; background: var(--panel); color: var(--muted); cursor: pointer; }
 .pagination button.active { background: var(--accent); border-color: var(--accent); color: #1b0c06; font-weight: 800; }
+.request-pagination { margin-top: 1.5rem; flex-wrap: wrap; }
+.request-pagination[hidden] { display: none; }
+.request-pagination button:disabled { opacity: .4; cursor: not-allowed; }
 
 .site-footer { display: flex; justify-content: space-between; gap: 3rem; margin-top: 6rem; padding: 2rem 0 0; border-top: 1px solid var(--line); color: #787e84; font-size: .72rem; }
 .site-footer p { max-width: 800px; margin: 0; }

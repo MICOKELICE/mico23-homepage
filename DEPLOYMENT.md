@@ -47,4 +47,5 @@ An entry in `request_progress` places a List request under In Progress. Progress
 - VNDB, Google Drive, and MEGA open in new tabs.
 - Request form accepts only `https://vndb.org/v<number>` links.
 - A submitted request appears publicly under List.
+- List pagination shows seven requests per page and preserves the full count.
 - Done contains only owner-updated rows.
